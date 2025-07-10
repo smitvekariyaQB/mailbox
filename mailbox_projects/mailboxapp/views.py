@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 @receiver(inbound)
 def handle_inbound_email(sender, event, esp_name, **kwargs):
     message = event.message
+    print("message", message)
     recipient = message.envelope_recipient  # e.g., smit.vekariya@sandbox123abc.mailgun.org
     username = recipient.split('@')[0]
     try:
@@ -43,7 +44,7 @@ def handle_inbound_email(sender, event, esp_name, **kwargs):
 
 @csrf_exempt
 def webhook(request):
-    logger.debug(f"Webhook received: {request.method} {request.body}")
+    print(f"Webhook received: {request.method}")
     return HttpResponse(status=200)
 
 # Web views

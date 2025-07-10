@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mailboxapp',
     'rest_framework',
-    'anymail'
+    'anymail',
+    'channels',
 ]
 
 MIDDLEWARE = [
