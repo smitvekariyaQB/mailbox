@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv() 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -141,9 +143,10 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'  # Change to 'sendgrid.EmailBackend' or 'postmark.EmailBackend' for other ESPs
 
 ANYMAIL = {
-    'MAILGUN_API_KEY': os.environ.get('MAILGUN_API_KEY', ''),
-    'MAILGUN_SENDER_DOMAIN': os.environ.get('MAILGUN_SENDER_DOMAIN', ''),
-    'WEBHOOK_SECRET': os.environ.get('MAILGUN_WEBHOOK_SECRET', ''),  # Shared secret for webhook security
+    'MAILGUN_API_KEY':  os.getenv('MAILGUN_API_KEY', ''),
+    'MAILGUN_SENDER_DOMAIN':  os.getenv('MAILGUN_SENDER_DOMAIN', ''),
+    'WEBHOOK_SECRET':  os.getenv('WEBHOOK_SECRET', ''),
+    'MAILGUN_WEBHOOK_SIGNING_KEY': os.getenv('MAILGUN_WEBHOOK_SIGNING_KEY')  # Shared secret for webhook security
 }
 
 DEFAULT_FROM_EMAIL = f'admin@sandbox631bbf455fae49a8a3e0d609e3ee4e0a.mailgun.org'

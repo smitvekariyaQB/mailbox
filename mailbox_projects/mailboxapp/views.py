@@ -18,13 +18,15 @@ from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 logger = logging.getLogger(__name__)
 
+# https://KOUK4706nKbIEChc:sq7ImdYBScBHsaUS@late-plums-juggle.loca.lt/anymail/mailgun/inbound/v
 # Webhook for receiving emails
 @receiver(inbound)
 def handle_inbound_email(sender, event, esp_name, **kwargs):
     message = event.message
-    print("message", message)
     recipient = message.envelope_recipient  # e.g., smit.vekariya@sandbox123abc.mailgun.org
+    print("recipient", recipient)
     username = recipient.split('@')[0]
+    print("username", username)
     try:
         user = User.objects.get(username=username)
         ReceivedEmail.objects.create(
@@ -41,9 +43,20 @@ def handle_inbound_email(sender, event, esp_name, **kwargs):
     except Exception as e:
         logger.error(f"Error processing email for {recipient}: {str(e)}")
 
+# https://late-plums-juggle.loca.lt/mailbox/webhook/
 
 @csrf_exempt
 def webhook(request):
+    # signature = request.POST["signature"]
+    # print("signature", signature)
+    # sender = request.POST["sender"]
+    # print("sender", sender)
+    # subject = request.POST["subject"]
+    # print("subject", subject)
+    # recipient = request.POST["recipient"]
+    # print("recipient", recipient)
+    # Body_plain = request.POST["body-plain"]
+    # print("Body_plain", Body_plain)
     print(f"Webhook received: {request.method}")
     return HttpResponse(status=200)
 
